@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Mono Aktif Sinemacılık</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+<body>
+   <header>
+      <!-- Logo sola -->
+      <div class="logo">
+        <a href="index.html"><i class="fa fa-home"></i><span class="sr-only">Anasayfa</span></a>
+    </div>
+              <!-- Menü Butonu -->
+                       <button class="menu-btn">
+                        <i class="fa-solid fa-bars"></i> <!-- Başlangıçta hamburger menü -->
+                       </button>
+  
+      <!-- Menü ortada -->
+      <nav>
+        <ul>
+          <li onclick="openModal('adresModal')" style="cursor: pointer;">
+            <a href="javascript:void(0);">
+                <i class="fa-solid fa-location-dot"></i> Adres
+            </a>
+        </li>
+        <li onclick="openModal('fiyatModal')" style="cursor: pointer;">
+          <a href="javascript:void(0);">
+            <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
+          </a>
+      </li>
+      <li onclick="openModal('iletisimModal')" style="cursor: pointer;">
+        <a href="javascript:void(0);">
+          <i class="fa-solid fa-message"></i> İletişim
+        </a>
+    </li>
+  
+
+
+<li><a href="basvuru.html"><i class="fa-solid fa-circle-user"></i></i>Başvuru</a></li>
+<li><a href="Showtime.html"><i class="fa-solid fa-circle-user"></i></i>ShowTime</a></li>
+</ul>
+    
+       
+    </nav>
+    
+  
+     
+  </header>
+  
+ 
+  
+<main>
+  
+  <div class="slideshow-container" id="sliderContainer">
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <p id="ad" class="ad"></p>
+     
+    <div class="dots-container" id="dotsContainer"></div>
+  </div>
+
+
+
+
+
+  <div class="scroll-slider">
+    
+    
+    <!-- Menü -->
+    
+    <ul class="slider-menu">
+      <li class="active" data-category="popular">Vizyonda Yeni</li>
+      <li data-category="now_playing">Vizyondakiler</li>
+      <li data-category="upcoming">Gelecek Filmler</li>
+    </ul>
+  
+
+
+  <div id="slider-card" class="slider-card">
+    
+    <!-- OTOMATİK ÇEKİLECEK -->
+    
+    </div>
+    
+  </div>
+
+  
+  <div class="vizyonfilmler" id="vizyonFilmlerContainer">
+   
+</div>
+  
+
+<!-- <div id="seansModal" class="film-seans-modal">
+  <div class="film-seans-content">
+      <span class="film-seans-close" onclick="closeModal('seansModal')">&times;</span>
+      <h2 id="modal-ad" class="film-seans-baslik"></h2>
+
+      <div class="film-seans-button-container">
+          <button id="seanslarBtn" class="film-seans-button film-seans-button-active" data-section="seanslar">
+              <i class="fa-solid fa-clock"></i>Seanslar
+          </button>
+          <button id="takvimBtn" class="film-seans-button" data-section="takvim">
+              <i class="fa-solid fa-calendar-days"></i>Takvim
+          </button>
+      </div>
+
+      <div id="seansSection" class="film-seans-section active-section" data-section="seanslar">
+          <ul id="saat-kapsayici" class="film-seans-saat-list">
+              </ul>
+      </div>
+
+      <ul id="takvimSection" class="film-seans-takvim-container" data-section="takvim">
+          </ul>
+  </div>
+</div> -->
+</main>
+
+
+
+
+   <!--İLETİŞİM, ADRES VE FİYAT MODALLARI HTML KODU BURADA BAŞLIYOR-->
+
+   
+  
+  
+
+
+ <div id="adresModal" class="adresModal">
+  <div class="adresmodal-content">
+    <span class="close" onclick="closeModal('adresModal')">&times;</span>
+    <h2>Adres Bilgileri</h2>
+    <p>Adres: İşçi Blokları, Mevlana Blv. 190B D:415, 06530 Çankaya/Ankara</p>
+    
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48984.48107351115!2d32.81415882631836!3d39.884763067156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d345e2586d67ad%3A0x1bcc4c9e5b0bf951!2sTaurus%20AVM!5e0!3m2!1str!2str!4v1735333904075!5m2!1str!2str" 
+      width="300" 
+      height="300" 
+      style="border:0; border-radius: 5px;" 
+      allowfullscreen 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div> 
+
+ <div id="iletisimModal" class="iletisimModal">
+  <div class="iletisimmodal-content">
+      <span class="close" onclick="closeModal('iletisimModal')">&times;</span>
+      <h2>Görüş ve Şikayetlerinizi Bize Bildirebilirsiniz</h2>
+      <form action="#" method="post">
+          <label for="email">E-posta:</label>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="message">Mesajınız:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          
+          <button type="submit">
+              <ion-icon name="mail-outline"></ion-icon> Gönder
+          </button>
+      </form>
+  </div>
+</div> 
+
+
+<div id="fiyatModal" class="fiyatmodal">
+  <div class="fiyat-content">
+    <span class="close" onclick="closeModal('fiyatModal')">&times;</span>
+    <h2>Fiyat Bilgileri</h2>
+    
+   
+    <div class="price-section">
+      <h3>Hafta İçi (Salı,Perşembe)</h3>
+      <ul class="price-list">
+        <li class="TWOD">Tam 2D: 220 ₺</li>            
+        <li class="TWOD">Öğrenci 2D: 200 ₺</li>
+        <li class="TWOD">Öğrenci İlk Seans 2D: 170 ₺</li>
+        <li class="THREED">Tam 3D: 225 ₺</li>
+        <li class="THREED">Öğrenci 3D: 205 ₺</li>
+        <li class="THREED">Öğrenci İlk Seans 3D: 175 ₺</li>
+        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
+        <li class="indirim">Emekli: 155 ₺</li>
+        <li class="indirim">Engelli: 225 ₺</li>
+      </ul>
+    </div> 
+
+  
+    <div class="price-section">
+      <h3>Hafta Sonu (Cuma, Cumartesi, Pazar)</h3>
+      <ul class="price-list">
+        <li class="TWOD">Tam 2D: 220 ₺</li>            
+        <li class="TWOD">Öğrenci 2D: 200 ₺</li>
+        <li class="THREED">Tam 3D: 225 ₺</li>
+        <li class="THREED">Öğrenci 3D: 205 ₺</li>
+        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
+        <li class="indirim">Emekli: 155 ₺</li>
+        <li class="indirim">Engelli: 225 ₺</li>
+      </ul>
+    </div>
+
+   
+    <div id="halkgunu" class="price-section">
+      <h3>İndirimli Günler ve Gruplar<br>(Halk Günü Pazartesi, Çarşamba)</h3>
+      <ul class="price-list">
+        <li class="indirim">Halk Günü 2D: 180 ₺</li>
+        <li class="indirim">Halk Günü 3D: 180 ₺</li>
+        <li class="indirim">Emekli: 155 ₺</li>
+        <li class="indirim">Engelli: 225 ₺</li>
+        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
+        <li class="indirim">Kültür Bakanlığıhafta sonu: 150 ₺</li>
+      </ul>
+    </div>
+
+  
+    <p>
+      Fiyatlar 13.12.2024 tarihinden itibaren geçerlidir. Bilet fiyatlarına tüm vergiler dahildir.<br>
+      Cuma günleri, resmi tatiller, dini ve milli bayramlarda hafta sonu bilet fiyatları geçerlidir.<br>
+      İndirimli fiyatlardan faydalanılabilmesi için belge ibrazı zorunludur.<br>
+      İndirim ve kampanyalar birleştirilemez.<br>
+      Sinema yönetimi gerektiğinde önceden haber vermeksizin indirim ve kampanyalarda değişiklik veya sonlandırma yapabilir.<br>
+      Öğrenci ilk seans indirimi Pazartesi, Salı, Çarşamba ve Perşembe günleri saat 12:30'a kadar (12:30 dahil) başlayan filmlerin ilk seanslarında geçerlidir.<br>
+    </p>
+  </div>
+</div>
+
+
+
+  
+<!--İLETİŞİM, ADRES VE FİYAT VE SEANS MODALLARI HTML KODU BURADA BİTİYOR-->
+
+  <!-- Sosyal Medya Bağlantıları -->
+  <footer>
+    <div class="footer-container">
+     
+      <div class="footer-section">
+        <h3>Sosyal Medya</h3>
+        <div class="social-links">
+          <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+  
+      
+      <div class="footer-section">
+       <h3>KVK</h3>
+       <a href="cerez.html" ><p>Çerez Politikası</p></a>
+       <a href="Kvk.html" ><p>KVK Aydınlatma metni</p></a>
+      </div>
+     
+      <div class="footer-section">
+        <h3>Hızlı Bağlantılar</h3>
+        <ul>
+          <li onclick="openModal('adresModal')" style="cursor: pointer;">
+            <a href="javascript:void(0);">
+                <i class="fa-solid fa-location-dot"></i> Adres
+            </a>
+        </li>
+        <li onclick="openModal('fiyatModal')" style="cursor: pointer;">
+          <a href="javascript:void(0);">
+            <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
+          </a>
+      </li>
+      <li onclick="openModal('iletisimModal')" style="cursor: pointer;">
+        <a href="javascript:void(0);">
+          <i class="fa-solid fa-message"></i> İletişim
+        </a>
+    </li>
+        </ul>
+      </div>
+    </div>
+  
+   
+    <div class="footer-bottom">
+      <p>&copy; 2025 Mono Aktif Sinemacılık. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>  
+
+  <script src="script.js"></script>
+  </body>
+</html>
