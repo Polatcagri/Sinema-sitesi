@@ -89,7 +89,7 @@ const slides = document.querySelectorAll('.showtime-slide');
 // https://www.tauruscinemarine.com/control/json/info.json
 
 document.addEventListener("DOMContentLoaded", async function () {
-const JSON_PATH = 'json/info.json';
+const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
 const FALLBACK_IMG_URL = 'images/placeholder.jpg';
 
   const elements = {
@@ -452,7 +452,7 @@ function isSameDay(dateString1, dateString2) {
 }
 
 async function loadFilmSessions(filmId) {
-    const JSON_PATH = 'json/info.json';
+    const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
     const saatKapsayici = document.getElementById(`saat-kapsayici-${filmId}`);
     const takvimContainer = document.getElementById(`takvimSection-${filmId}`);
 
@@ -539,7 +539,7 @@ function createCalendar(dates, filmId) {
 }
 
 async function loadSessionsForDate(filmId, selectedDate) {
-    const JSON_PATH = 'json/info.json';
+    const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
     const saatKapsayici = document.getElementById(`saat-kapsayici-${filmId}`);
     const seansSection = document.getElementById(`seansSection-${filmId}`);
     const takvimSection = document.getElementById(`takvimSection-${filmId}`);
