@@ -509,11 +509,20 @@ nav ul li i {
 .incele { /* DÜZELTME: .İncele -> .incele */
   background-color: transparent;
   color: #ffffff;
-  display: none;
+  display: flex;
 }
 
 .incele:hover {
   background-color: #00f0ff;
+}
+@media (hover: hover) and (pointer: fine) {
+  .incele {
+    display: none;
+  }
+
+  .vizyon-karti:hover .incele {
+    display: flex;
+  }
 }
 
 .vizyon-karti:hover .incele { /* DÜZELTME: .İncele -> .incele */
