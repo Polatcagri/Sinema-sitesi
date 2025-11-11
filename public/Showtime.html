@@ -1,37 +1,358 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="tr">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-   <title>ShowTime</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ShowTime - Vizyonda Filmler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *{ box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: 'PT Sans', sans-serif; background: linear-gradient(135deg, #0f1724 0%, #081226 100%); color: #fff; overflow: hidden; }
+    .showtime-wrapper { width: 100vw; height: 100vh; display: flex; align-items: stretch; justify-content: center; position: relative; }
+  .countdown-overlay { 
+   position: absolute; 
+   top: 25px; 
+   right: 35px; 
+   width:80px; 
+   height:80px; 
+   background: #081226; 
+   border: 3px solid #2b8cff; color:#2b8cff; 
+   border-radius: 50%; 
+   font-weight: 900; 
+   z-index: 90; 
+   -webkit-backdrop-filter: blur(2px); 
+   backdrop-filter: blur(2px); 
+   font-size: 1.25rem;
+   box-shadow: 0 8px 18px 
+   rgba(0,0,0,0.55); 
+   display:flex;
+   align-items:center;
+   justify-content:center; }
+    .showtime-slider { width: 100%; height: 100%; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 18px 18px; padding: 18px; }
+  .showtime-slider { will-change: transform, opacity; -webkit-transform: translateZ(0); transform: translateZ(0); }
+  /* lighter shadow and GPU hints */
+  .showtime-film-card { position: relative; 
+   overflow: hidden; 
+   border-radius: 8px; 
+   background: #000; 
+   display: flex; 
+   align-items: 
+   stretch; 
+   justify-content: center; 
+   aspect-ratio: 2000/1000; 
+   box-shadow: 0 14px 30px rgba(0,0,0,0.55); 
+   will-change: transform, opacity; 
+   -webkit-transform: translateZ(0); 
+   transform: translateZ(0);
+    backface-visibility: hidden; }
+  .showtime-film-card::before { 
+   content: ''; 
+   position: absolute; 
+   inset: 0; 
+   border-radius: 8px;
+    box-shadow: inset 0 -30px 40px rgba(0,0,0,0.45); pointer-events: none; }
+  .showtime-film-header { position: absolute; top: 0; left: 0; right: 0; padding: 10px 16px; background: rgba(0,0,0,0.35); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); z-index: 30; font-size: 1.25rem; font-weight: 800; color: #fff; }
+  .showtime-film-poster { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; }
+  .showtime-film-poster img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
+  .showtime-film-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 90%); color: #fff; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
+  .showtime-film-title { font-size: 1.2rem; font-weight: 700; line-height: 1.1; }
+  /* showtimes vertically on the right side */
+  .showtime-film-times { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; align-items: flex-end; z-index: 30; max-width: 28%; max-height: 70%; overflow-y: auto; padding-right:6px; }
+  .showtime-film-times::-webkit-scrollbar{width:8px}
+  .showtime-film-times::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+    .showtime-time-badge { background: linear-gradient(90deg, #ff006e, #8338ec); color: #fff; padding: 10px 14px; border-radius: 10px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 6px 18px rgba(0,0,0,0.45); min-width:56px; text-align:center; }
+
+  /* Page transition animations (ppt-like) - animate only transform & opacity for GPU compositing */
+  .slider-transition-out { animation: pptOut 420ms cubic-bezier(.22,.9,.27,1) forwards; }
+  .slider-transition-in { animation: pptIn 420ms cubic-bezier(.22,.9,.27,1) forwards; }
+  /* Override: disable heavy slider animations to prevent jank; focus on per-card entrance instead */
+  .slider-transition-out, .slider-transition-in { animation: none !important; opacity: 1 !important; }
+
+    @keyframes pptOut {
+      0% { opacity: 1; transform: translateZ(0) translateY(0) scale(1); }
+      60% { opacity: 0.65; transform: translateZ(0) translateY(-8px) scale(0.992); }
+      100% { opacity: 0; transform: translateZ(0) translateY(-24px) scale(0.985); }
+    }
+
+    @keyframes pptIn {
+      0% { opacity: 0; transform: translateZ(0) translateY(24px) scale(1.01); }
+      60% { opacity: 0.78; transform: translateZ(0) translateY(6px) scale(1.003); }
+      100% { opacity: 1; transform: translateZ(0) translateY(0) scale(1); }
+    }
+    /* Per-card enter state: animate only opacity & transform */
+    /* Low-cost standard entrance: cards fade + slight translate (composite-only) */
+    .card-enter { opacity: 0; transform: translateZ(0) translateY(8px); }
+    .showtime-film-card { transition: opacity 180ms ease, transform 200ms cubic-bezier(.22,.9,.27,1); }
+    /* Note: stagger timing is controlled in JS (small delay between cards) */    .showtime-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: #999; }
+    .no-session { color: #ff6b6b; font-weight: 700; font-size: 0.95rem; }
+  /* central overlay for no sessions */
+  .no-available-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.4rem;background:rgba(0,0,0,0.55);z-index:50}
+  /* age badges bottom-left */
+  .age-badges{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;align-items:center;z-index:40}
+  .age-badge{width:44px;height:44px;border-radius:50%;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);background-size:contain;background-position:center;background-repeat:no-repeat}
+    @media (max-width: 1200px) { .showtime-slider { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .showtime-slider { grid-template-columns: repeat(1, 1fr); gap: 12px; padding: 12px; } }
+  </style>
 </head>
 <body>
-   <div class="showtime-slider">
-      <div class="showtime-slide active">
-        <div class="showtime-box" style="background:#e74c3c;">1</div>
-        <div class="showtime-box" style="background:#3498db;">2</div>
-        <div class="showtime-box" style="background:#2ecc71;">3</div>
-        <div class="showtime-box" style="background:#f1c40f;">4</div>
-        <div class="showtime-box" style="background:#9b59b6;">5</div>
-        <div class="showtime-box" style="background:#1abc9c;">6</div>
-      </div>
-      <div class="showtime-slide">
-        <div class="showtime-box" style="background:#d35400;">7</div>
-        <div class="showtime-box" style="background:#7f8c8d;">8</div>
-        <div class="showtime-box" style="background:#34495e;">9</div>
-        <div class="showtime-box" style="background:#c0392b;">10</div>
-        <div class="showtime-box" style="background:#16a085;">11</div>
-        <div class="showtime-box" style="background:#8e44ad;">12</div>
-      </div>
-    </div>
-   
-   <script src="script.js"></script>
+  <div class="showtime-wrapper">
+    <div id="countdownOverlay" class="countdown-overlay">20</div>
+    <div id="sliderContainer" class="showtime-slider" aria-live="polite"></div>
+  </div>
+
+  <script>
+    const API_URL = '/api/films';
+    const FILMS_PER_PAGE = 4;
+    let allFilms = [];
+    let pages = [];
+    let currentPage = 0;
+    let countdown = 20;
+    let countdownInterval = null;
+
+    function startCountdown() {
+      clearInterval(countdownInterval);
+      countdown = 20;
+      const el = document.getElementById('countdownOverlay');
+      if (el) el.textContent = countdown;
+      countdownInterval = setInterval(() => {
+        countdown -= 1;
+        const e = document.getElementById('countdownOverlay');
+        if (e) e.textContent = countdown;
+        if (countdown <= 0) {
+          nextSlide();
+        }
+      }, 1000);
+    }
+
+    function resetCountdown() {
+      startCountdown();
+    }
+
+    async function fetchFilms() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error('API ' + res.status);
+        allFilms = await res.json();
+      } catch (e) {
+        console.warn('Proxy failed', e);
+        try {
+          const r = await fetch('/data/info.json');
+          allFilms = await r.json();
+        } catch (err) {
+          console.error('Fallback failed', err);
+          document.getElementById('sliderContainer').innerHTML = '<div class="showtime-empty">Filmler yüklenemedi</div>';
+          return;
+        }
+      }
+      setupPages();
+  showPage(0);
+  // preload next page to avoid jank when first auto-advances
+  preloadImagesForPage(1);
+      startCountdown();
+    }
+
+    function setupPages() {
+      pages = [];
+      for (let i = 0; i < allFilms.length; i += FILMS_PER_PAGE) {
+        pages.push(allFilms.slice(i, i + FILMS_PER_PAGE));
+      }
+      if (pages.length === 0) pages = [[]];
+    }
+
+    // Preload images for a given page index to make transitions smoother
+    function preloadImagesForPage(pageIndex) {
+      if (!pages || pages.length === 0) return;
+      const idx = (pageIndex + pages.length) % pages.length;
+      const page = pages[idx] || [];
+      page.forEach(film => {
+        const src = film.banner || film.poster;
+        if (!src) return;
+        const img = new Image();
+        img.decoding = 'async';
+        img.src = src;
+        // allow browser caching; onload/onerror no-op
+        img.onload = img.onerror = () => {};
+      });
+    }
+
+    function showPage(index) {
+      if (!pages.length) return;
+      if (index < 0) index = pages.length - 1;
+      if (index >= pages.length) index = 0;
+      currentPage = index;
+      const container = document.getElementById('sliderContainer');
+      const page = pages[currentPage];
+      if (!page || page.length === 0) {
+        container.innerHTML = '<div class="showtime-empty">Şu anda gösterimde film yok</div>';
+        return;
+      }
+
+      const w = window.innerWidth;
+      if (w <= 768) container.style.gridTemplateColumns = 'repeat(1,1fr)';
+      else container.style.gridTemplateColumns = 'repeat(2,1fr)';
+
+      // Clear old content
+      container.innerHTML = '';
+      
+      // Add new cards with per-card entrance
+      page.forEach(film => {
+        const card = createFilmCard(film);
+        container.appendChild(card);
+      });
+
+      // Add per-card entrance animation (cards fade + translate in sequentially)
+      const cards = Array.from(container.querySelectorAll('.showtime-film-card'));
+      cards.forEach(c => c.classList.add('card-enter'));
+      
+      // Remove enter class with stagger for natural sequential entrance
+      requestAnimationFrame(() => {
+        const STAGGER = 80; // ms between cards
+        cards.forEach((c, i) => setTimeout(() => { try { c.classList.remove('card-enter'); } catch(e){} }, i * STAGGER));
+      });
+
+      // Preload next page images to reduce jank when advancing
+      preloadImagesForPage(currentPage + 1);
+
+      resetCountdown();
+    }
+
+    function createFilmCard(film) {
+      const card = document.createElement('div');
+      card.className = 'showtime-film-card';
+
+      // Header (film ismi)
+      const header = document.createElement('div');
+      header.className = 'showtime-film-header';
+      header.textContent = film.ad || '';
+
+      const posterWrap = document.createElement('div');
+      posterWrap.className = 'showtime-film-poster';
+      const img = document.createElement('img');
+      // Use banner when available. Set decoding/loading to avoid blocking animations.
+      img.decoding = 'async';
+      try { img.loading = 'eager'; } catch (e) {}
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 320ms ease';
+      img.src = film.banner || film.poster || 'https://via.placeholder.com/2000x1000?text=Banner';
+      img.alt = film.ad || 'Film banner';
+      img.onerror = () => {
+        img.src = 'https://via.placeholder.com/2000x1000?text=Banner';
+      };
+      img.onload = () => { img.style.opacity = '1'; };
+      posterWrap.appendChild(img);
+
+      // Bottom info area (optional)
+      const info = document.createElement('div');
+      info.className = 'showtime-film-info';
+
+      // Showtimes column on the right
+      const timesWrap = document.createElement('div');
+      timesWrap.className = 'showtime-film-times';
+
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      // Filter future seans and dedupe by seans string
+      const seen = new Set();
+      const uniqueSeans = [];
+      (film.altseans || []).forEach(s => {
+        if (!s || !s.seans) return;
+        const parts = s.seans.split(':').map(p => parseInt(p, 10));
+        if (parts.length < 2 || Number.isNaN(parts[0]) || Number.isNaN(parts[1])) return;
+        const mins = parts[0] * 60 + parts[1];
+        if (mins < currentMinutes) return;
+        const key = s.seans.trim();
+        if (!seen.has(key)) { seen.add(key); uniqueSeans.push(key); }
+      });
+
+      const hasSessions = uniqueSeans.length > 0;
+
+      if (!hasSessions) {
+        // darken + central message
+        const overlay = document.createElement('div');
+        overlay.className = 'no-available-overlay';
+        overlay.textContent = 'BUGÜN İÇİN GÖSTERİ SAATLERİ GEÇMİŞTİR.';
+        card.appendChild(overlay);
+      } else {
+        const maxShow = 6;
+        uniqueSeans.slice(0, maxShow).forEach(t => {
+          const b = document.createElement('div');
+          b.className = 'showtime-time-badge';
+          b.textContent = t;
+          timesWrap.appendChild(b);
+        });
+        const remaining = uniqueSeans.length - maxShow;
+        if (remaining > 0) {
+          const more = document.createElement('div');
+          more.className = 'showtime-time-badge';
+          more.textContent = `+${remaining}`;
+          timesWrap.appendChild(more);
+        }
+      }
+
+      // Age badges (bottom-left)
+      const ageWrap = document.createElement('div');
+      ageWrap.className = 'age-badges';
+      (film.yasisaret || []).slice(0,3).forEach(url => {
+        const badge = document.createElement('div');
+        badge.className = 'age-badge';
+        badge.style.backgroundImage = `url(${url})`;
+        ageWrap.appendChild(badge);
+      });
+
+      // Assemble
+      card.appendChild(header);
+      card.appendChild(posterWrap);
+      card.appendChild(info);
+      if (hasSessions) card.appendChild(timesWrap);
+      card.appendChild(ageWrap);
+
+      card.addEventListener('click', () => {
+        resetCountdown();
+      });
+
+      return card;
+    }
+
+    function nextSlide() {
+      showPage(currentPage + 1);
+    }
+
+    function prevSlide() {
+      showPage(currentPage - 1);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    (function() {
+      let xStart = null;
+      window.addEventListener('touchstart', e => {
+        xStart = e.touches[0].clientX;
+      });
+      window.addEventListener('touchend', e => {
+        if (xStart === null) return;
+        const xEnd = e.changedTouches[0].clientX;
+        const dx = xEnd - xStart;
+        if (Math.abs(dx) > 50) {
+          if (dx < 0) nextSlide();
+          else prevSlide();
+        }
+        xStart = null;
+      });
+    })();
+
+    window.addEventListener('resize', () => {
+      showPage(currentPage);
+    });
+
+    fetchFilms();
+  </script>
 </body>
 </html>
