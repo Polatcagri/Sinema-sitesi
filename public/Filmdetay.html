@@ -12,46 +12,27 @@
 </head>
 <body>
    <header>
-      <!-- Logo sola -->
-      <div class="logo">
-        <a href="index.html"><i class="fa fa-home"></i><span class="sr-only">Anasayfa</span></a>
-    </div>
-              <!-- Menü Butonu -->
-                       <button class="menu-btn">
-                        <i class="fa-solid fa-bars"></i> <!-- Başlangıçta hamburger menü -->
-                       </button>
-  
-      <!-- Menü ortada -->
-      <nav>
-        <ul>
-          <li onclick="openModal('adresModal')" style="cursor: pointer;">
-            <a href="javascript:void(0);">
-                <i class="fa-solid fa-location-dot"></i> Adres
-            </a>
-        </li>
-        <li onclick="openModal('fiyatModal')" style="cursor: pointer;">
-          <a href="javascript:void(0);">
-            <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
-          </a>
-      </li>
-      <li onclick="openModal('iletisimModal')" style="cursor: pointer;">
-        <a href="javascript:void(0);">
-          <i class="fa-solid fa-message"></i> İletişim
+    <div class="logo">
+        <a href="index.html">
+            <img src="img/Logo.jpg" alt="Şirket Logosu" class="logo-img">
+            <span class="sr-only">Anasayfa</span>
         </a>
-    </li>
-  
-            <li><a href="basvuru.html"><i class="fa-solid fa-circle-user"></i></i>Başvuru</a></li>
-           
+    </div>
+    
+    <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i> 
+    </button>
+
+    <nav class="nav-links">
+        <ul>
+             <li><a href="index.html">Gelecek Filmler</a></li>
+            <li><a href="Showtime.html">Vizyondakiler</a></li>
+            <li><a href="oyunlar.html">Oyunlar</a></li>
+            <li><a href="basvuru.html">Başvuru</a></li>
+            <li><a href="iletisimModal">İletişim</a></li>
         </ul>
-    
-       
     </nav>
-    
-  
-      <!-- Arama çubuğu sağda -->
-    
-      
-  </header>
+</header>
   <main>
     <div  id="filmdetay"  class="film-container">
       <!-- Film Görseli ve Başlık -->
@@ -133,104 +114,62 @@
 </div> 
 
 
-<div id="fiyatModal" class="fiyatmodal">
-  <div class="fiyat-content">
-    <span class="close" onclick="closeModal('fiyatModal')">&times;</span>
-    <h2>Fiyat Bilgileri</h2>
-    
-   
-    <div class="price-section">
-      <h3>Hafta İçi (Salı,Perşembe)</h3>
-      <ul class="price-list">
-        <li class="TWOD">Tam 2D: 220 ₺</li>            
-        <li class="TWOD">Öğrenci 2D: 200 ₺</li>
-        <li class="TWOD">Öğrenci İlk Seans 2D: 170 ₺</li>
-        <li class="THREED">Tam 3D: 225 ₺</li>
-        <li class="THREED">Öğrenci 3D: 205 ₺</li>
-        <li class="THREED">Öğrenci İlk Seans 3D: 175 ₺</li>
-        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
-        <li class="indirim">Emekli: 155 ₺</li>
-        <li class="indirim">Engelli: 225 ₺</li>
-      </ul>
-    </div> 
 
-  
-    <div class="price-section">
-      <h3>Hafta Sonu (Cuma, Cumartesi, Pazar)</h3>
-      <ul class="price-list">
-        <li class="TWOD">Tam 2D: 220 ₺</li>            
-        <li class="TWOD">Öğrenci 2D: 200 ₺</li>
-        <li class="THREED">Tam 3D: 225 ₺</li>
-        <li class="THREED">Öğrenci 3D: 205 ₺</li>
-        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
-        <li class="indirim">Emekli: 155 ₺</li>
-        <li class="indirim">Engelli: 225 ₺</li>
-      </ul>
-    </div>
-
-   
-    <div id="halkgunu" class="price-section">
-      <h3>İndirimli Günler ve Gruplar<br>(Halk Günü Pazartesi, Çarşamba)</h3>
-      <ul class="price-list">
-        <li class="indirim">Halk Günü 2D: 180 ₺</li>
-        <li class="indirim">Halk Günü 3D: 180 ₺</li>
-        <li class="indirim">Emekli: 155 ₺</li>
-        <li class="indirim">Engelli: 225 ₺</li>
-        <li class="indirim">Kültür Bakanlığı: 130 ₺</li>
-        <li class="indirim">Kültür Bakanlığıhafta sonu: 150 ₺</li>
-      </ul>
-    </div>
-
-  
-    <p>
-      Fiyatlar 13.12.2024 tarihinden itibaren geçerlidir. Bilet fiyatlarına tüm vergiler dahildir.<br>
-      Cuma günleri, resmi tatiller, dini ve milli bayramlarda hafta sonu bilet fiyatları geçerlidir.<br>
-      İndirimli fiyatlardan faydalanılabilmesi için belge ibrazı zorunludur.<br>
-      İndirim ve kampanyalar birleştirilemez.<br>
-      Sinema yönetimi gerektiğinde önceden haber vermeksizin indirim ve kampanyalarda değişiklik veya sonlandırma yapabilir.<br>
-      Öğrenci ilk seans indirimi Pazartesi, Salı, Çarşamba ve Perşembe günleri saat 12:30'a kadar (12:30 dahil) başlayan filmlerin ilk seanslarında geçerlidir.<br>
-    </p>
-  </div>
-</div>
 
 
   
 <!--İLETİŞİM, ADRES VE FİYAT MODALLARI HTML KODU BURADA BİTİYOR-->
 
   <!-- Sosyal Medya Bağlantıları -->
-  <footer>
+   <footer>
     <div class="footer-container">
-     
-      <div class="footer-section">
-        <h3>Sosyal Medya</h3>
-        <div class="social-links">
-          <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+
+        <div class="footer-section footer-brand">
+            <h3>Mono Aktif</h3>
+            <p>Aktif Sinemacılık Deneyimi.</p>
         </div>
-      </div>
-  
-      
-      <div class="footer-section">
-        <h3>KVK</h3>
-        <p>Çerez Politikası</p>
-        <p>KVK Aydınlatma metni</p>
-      </div>
-     
-      <div class="footer-section">
-        <h3>Hızlı Bağlantılar</h3>
-        <ul>
-          <li><a href="#">Adres</a></li>
-          <li><a href="#">Fiyat Bilgisi</a></li>
-          <li><a href="#">İletişim</a></li>
-        </ul>
-      </div>
+        
+        <div class="footer-section footer-links">
+            <h3>Hızlı Bağlantılar</h3>
+            <ul>
+                <li>
+                    <a href="javascript:void(0);" onclick="openModal('adresModal')" data-modal="adresModal">
+                        <i class="fa-solid fa-location-dot"></i> Adres
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="openModal('fiyatModal')" data-modal="fiyatModal">
+                        <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
+                        <i class="fa-solid fa-message"></i> İletişim
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="footer-section footer-legal">
+            <h3>Yasal</h3>
+            <a href="cerez.html">Çerez Politikası</a>
+            <a href="Kvk.html">KVK Aydınlatma Metni</a>
+        </div>
+
+        <div class="footer-section footer-social">
+            <h3>Sosyal Medya</h3>
+            <div class="social-links">
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        
     </div>
-  
-   
+    
     <div class="footer-bottom">
-      <p>&copy; 2025 Mono Aktif Sinemacılık. Tüm hakları saklıdır.</p>
+        <p>&copy; 2025 Mono Aktif Sinemacılık. Tüm hakları saklıdır.</p>
     </div>
-  </footer>  
+</footer>
 
   <script src="script.js"></script>
 </body>

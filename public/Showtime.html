@@ -61,10 +61,15 @@
   .showtime-film-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 90%); color: #fff; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
   .showtime-film-title { font-size: 1.2rem; font-weight: 700; line-height: 1.1; }
   /* showtimes vertically on the right side */
-  .showtime-film-times { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; align-items: flex-end; z-index: 30; max-width: 28%; max-height: 70%; overflow-y: auto; padding-right:6px; }
+  .showtime-film-times { position: absolute; left: 250px; top: 90%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; align-items: flex-end; z-index: 30; max-width: 28%; max-height: 70%; overflow-y: auto; padding-right:6px; }
   .showtime-film-times::-webkit-scrollbar{width:8px}
   .showtime-film-times::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
-    .showtime-time-badge { background: linear-gradient(90deg, #ff006e, #8338ec); color: #fff; padding: 10px 14px; border-radius: 10px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 6px 18px rgba(0,0,0,0.45); min-width:56px; text-align:center; }
+    .showtime-time-badge { background: linear-gradient(90deg, #ff006e, #8338ec); color: #fff; padding: 20px 15px; border-radius: 10px; font-weight: 800; font-size: 2.05rem; box-shadow: 0 6px 18px rgba(0,0,0,0.45); min-width:56px; text-align:center; }
+
+  /* Showtimes positioned bottom-right, horizontal */
+  .showtime-film-times { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: row; gap: 8px; align-items: center; max-width: 60%; overflow: hidden; z-index: 45; }
+  .showtime-film-times .showtime-time-badge { padding: 10px 16px; font-size: 1.12rem; border-radius: 14px; min-width: 64px; font-weight:900; box-shadow: 0 10px 26px rgba(0,0,0,0.6); }
+  .showtime-film-times .showtime-time-badge.more { background: rgba(255,255,255,0.06); color: #fff; font-weight: 700; }
 
   /* Page transition animations (ppt-like) - animate only transform & opacity for GPU compositing */
   .slider-transition-out { animation: pptOut 420ms cubic-bezier(.22,.9,.27,1) forwards; }
@@ -93,7 +98,8 @@
   .no-available-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.4rem;background:rgba(0,0,0,0.55);z-index:50}
   /* age badges bottom-left */
   .age-badges{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;align-items:center;z-index:40}
-  .age-badge{width:44px;height:44px;border-radius:50%;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);background-size:contain;background-position:center;background-repeat:no-repeat}
+    .age-badges{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;align-items:center;z-index:40}
+    .age-badge{width:44px;height:44px;border-radius:50%;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);background-size:contain;background-position:center;background-repeat:no-repeat}
     @media (max-width: 1200px) { .showtime-slider { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 700px) { .showtime-slider { grid-template-columns: repeat(1, 1fr); gap: 12px; padding: 12px; } }
   </style>
@@ -278,7 +284,7 @@
         overlay.textContent = 'BUGÜN İÇİN GÖSTERİ SAATLERİ GEÇMİŞTİR.';
         card.appendChild(overlay);
       } else {
-        const maxShow = 6;
+        const maxShow = 5;
         uniqueSeans.slice(0, maxShow).forEach(t => {
           const b = document.createElement('div');
           b.className = 'showtime-time-badge';
@@ -288,7 +294,7 @@
         const remaining = uniqueSeans.length - maxShow;
         if (remaining > 0) {
           const more = document.createElement('div');
-          more.className = 'showtime-time-badge';
+          more.className = 'showtime-time-badge more';
           more.textContent = `+${remaining}`;
           timesWrap.appendChild(more);
         }
@@ -304,12 +310,14 @@
         ageWrap.appendChild(badge);
       });
 
-      // Assemble
-      card.appendChild(header);
-      card.appendChild(posterWrap);
-      card.appendChild(info);
-      if (hasSessions) card.appendChild(timesWrap);
-      card.appendChild(ageWrap);
+  // Assemble
+  card.appendChild(header);
+  card.appendChild(posterWrap);
+  card.appendChild(info);
+  // age badges on bottom-left
+  card.appendChild(ageWrap);
+  // showtimes on bottom-right (horizontal)
+  if (hasSessions) card.appendChild(timesWrap);
 
       card.addEventListener('click', () => {
         resetCountdown();

@@ -29,45 +29,36 @@ window.onclick = function (event) {
   });
 };
 
+const navSlide = () => {
+    const burger = document.querySelector('.menu-btn');
+    const nav = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-links li');
+
+    burger.addEventListener('click', () => {
+        // 1. Menüyü Aç/Kapa
+        nav.classList.toggle('nav-active');
+
+        // 2. Link Animasyonları (Sırayla gelme efekti)
+        navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+                // Eğer zaten açıksa animasyonu temizle (kapanırken)
+                link.style.animation = '';
+            } else {
+                // Açılırken animasyonu ekle. Index ile gecikme veriyoruz.
+                // index / 7 + 0.3s -> Her bir link 0.1s farkla gelir.
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+            }
+        });
+
+        // 3. Burger İkonunu Animasyonla (X şekline dönüştürmek için)
+        burger.classList.toggle('toggle');
+    });
+}
+
+// Fonksiyonu çalıştır
+navSlide();
 
 
-
-document.querySelector(".menu-btn").addEventListener("click", function() {
-
-    let menu = document.querySelector("nav ul");      // Menü
-    let menuIcon = document.querySelector(".menu-btn i"); // Menü ikonu
-    
-    menu.classList.toggle("active"); // Menü aç/kapa
-
-    // İkonu değiştir
-    if (menu.classList.contains("active")) {
-        menuIcon.classList.remove("fa-bars"); // Hamburger ikonunu kaldır
-        menuIcon.classList.add("fa-xmark");   // Kapatma ikonunu ekle
-    } else {
-        menuIcon.classList.remove("fa-xmark"); // Kapatma ikonunu kaldır
-        menuIcon.classList.add("fa-bars");     // Hamburger ikonunu geri ekle
-    }
-    
-});
-document.querySelector(".menu-btn").addEventListener("click", function () {
-    let sidebar = document.querySelector("nav"); // Sidebar'ı seç
-    let menuIcon = document.querySelector(".menu-btn i"); // Menü ikonunu seç
-
-    sidebar.classList.toggle("active"); // Sidebar'ı aç/kapa
-
-    // İkonu değiştir
-    if (sidebar.classList.contains("active")) {
-        menuIcon.classList.remove("fa-bars"); // Hamburger ikonunu kaldır
-        menuIcon.classList.add("fa-xmark");   // Kapatma ikonunu ekle
-    } else {
-        menuIcon.classList.remove("fa-xmark"); // Kapatma ikonunu kaldır
-        menuIcon.classList.add("fa-bars");     // Hamburger ikonunu geri ekle
-    }
-});
-document.querySelector(".menu-btn").addEventListener("click", function() {
-    document.querySelector("#searchInput").classList.toggle("active");
-
-});
 
 const slides = document.querySelectorAll('.showtime-slide');
     let index = 0;
@@ -89,7 +80,7 @@ const slides = document.querySelectorAll('.showtime-slide');
 // https://www.tauruscinemarine.com/control/json/info.json
 
 document.addEventListener("DOMContentLoaded", async function () {
-const JSON_PATH = 'json/info.json';
+const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
 const FALLBACK_IMG_URL = 'images/placeholder.jpg';
 
   const elements = {
@@ -252,7 +243,7 @@ const FALLBACK_IMG_URL = 'images/placeholder.jpg';
                      onerror="this.src='${FALLBACK_IMG_URL}'">
                 <div class="movie-info">
                     <h3 class="movie-title">${getTurkishTitle(film.ad)}</h3>
-                    <span class="movie-date">${film.vizyon || 'Tarih yok'}</span>
+                   
                 </div>
             </div>
         `).join('');
@@ -452,7 +443,7 @@ function isSameDay(dateString1, dateString2) {
 }
 
 async function loadFilmSessions(filmId) {
-    const JSON_PATH = 'json/info.json';
+    const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
     const saatKapsayici = document.getElementById(`saat-kapsayici-${filmId}`);
     const takvimContainer = document.getElementById(`takvimSection-${filmId}`);
 
@@ -539,7 +530,7 @@ function createCalendar(dates, filmId) {
 }
 
 async function loadSessionsForDate(filmId, selectedDate) {
-    const JSON_PATH = 'json/info.json';
+    const API_URL = "https://sinema-sitesi.onrender.com/proxy?url=https://www.tauruscinemarine.com/control/json/info.json";
     const saatKapsayici = document.getElementById(`saat-kapsayici-${filmId}`);
     const seansSection = document.getElementById(`seansSection-${filmId}`);
     const takvimSection = document.getElementById(`takvimSection-${filmId}`);
