@@ -14,26 +14,47 @@
 
 </head>
 <body>
-   <header>
+<header>
     <div class="logo">
-        <a href="index.html">
-            <img src="img/Logo.jpg" alt="Şirket Logosu" class="logo-img">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">
+                <img src="img/logo.png" alt="Mono Aktif">
+            </span>
+            <span class="brand-text">
+                <span class="brand-title">Mono Aktif</span>
+                <span class="brand-sub">Aktif Sinemacılık</span>
+            </span>
             <span class="sr-only">Anasayfa</span>
         </a>
     </div>
     
-    <button class="menu-btn">
+    <button class="menu-btn" aria-label="Menüyü Aç/Kapat">
         <i class="fa-solid fa-bars"></i> 
     </button>
 
-    <nav class="nav-links">
-        <ul>
-             <li><a href="index.html">Gelecek Filmler</a></li>
-            <li><a href="Showtime.html">Vizyondakiler</a></li>
-            <li><a href="oyunlar.html">Oyunlar</a></li>
-            <li><a href="basvuru.html">Başvuru</a></li>
-            <li><a href="iletisimModal">İletişim</a></li>
-        </ul>
+    <nav class="nav-links" aria-label="Ana Menü">
+        <div class="nav-menu-header" aria-hidden="true">
+            <div class="brand-icon">
+                  <img src="img/logo.png" alt="Mono Aktif">
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">Mono Aktif</span>
+                <span class="brand-sub">Aktif Sinemacılık</span>
+            </div>
+        </div>
+        <div class="nav-menu-body">
+          
+            <ul>
+            <li><a class="nav-item" href="Showtime.html">Showtime</a></li>
+            <li><a class="nav-item" href="basvuru.html">Başvuru</a></li>
+            <li>
+                <a class="nav-item" href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
+                    İletişim
+                </a>
+            </li>
+            </ul>
+        </div>
+        
     </nav>
 </header>
   
@@ -58,7 +79,7 @@
     <ul class="slider-menu">
       <li class="active" data-category="popular">Vizyonda Yeni</li>
       <li data-category="now_playing">Vizyondakiler</li>
-      <li data-category="upcoming">Gelecek Filmler</li>
+      <!-- <li data-category="upcoming">Gelecek Filmler</li> -->
     </ul>
   </div>
 
@@ -95,41 +116,47 @@
   
 
 
- <div id="adresModal" class="adresModal">
-  <div class="adresmodal-content">
-    <span class="close" onclick="closeModal('adresModal')">&times;</span>
-    <h2>Adres Bilgileri</h2>
-    <p>Adres: İşçi Blokları, Mevlana Blv. 190B D:415, 06530 Çankaya/Ankara</p>
-    
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48984.48107351115!2d32.81415882631836!3d39.884763067156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d345e2586d67ad%3A0x1bcc4c9e5b0bf951!2sTaurus%20AVM!5e0!3m2!1str!2str!4v1735333904075!5m2!1str!2str" 
-      width="300" 
-      height="300" 
-      style="border:0; border-radius: 5px;" 
-      allowfullscreen 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-</div> 
+  <div id="adresModal" class="modal">
+        <div class="modal-content-base">
+            <span class="close-btn" onclick="closeModal('adresModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-logo-color" style="font-family: 'Bebas Neue', sans-serif;">Adres Bilgileri</h2>
+            <p class="text-text-gray mb-4">İşçi Blokları, Mevlana Blv. 190B D:415, 06530 Çankaya/Ankara</p>
+            
+            <!-- Harita Iframe -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48984.48107351115!2d32.81415882631836!3d39.884763067156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d345e2586d67ad%3A0x1bcc4c9e5b0bf951!2sTaurus%20AVM!5e0!3m2!1str!2str!4v1735333904075!5m2!1str!2str" 
+                    allowfullscreen 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Taurus AVM Konumu">
+                </iframe>
+            </div>
+        </div>
+    </div>
 
- <div id="iletisimModal" class="iletisimModal">
-  <div class="iletisimmodal-content">
-      <span class="close" onclick="closeModal('iletisimModal')">&times;</span>
-      <h2>Görüş ve Şikayetlerinizi Bize Bildirebilirsiniz</h2>
-      <form action="#" method="post">
-          <label for="email">E-posta:</label>
-          <input type="email" id="email" name="email" required>
-          
-          <label for="message">Mesajınız:</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
-          
-          <button type="submit">
-              <ion-icon name="mail-outline"></ion-icon> Gönder
-          </button>
-      </form>
-  </div>
-</div> 
+    <!-- İletişim Modalı (Formlu) -->
+    <div id="iletisimModal" class="modal">
+        <div class="modal-content-base">
+            <span class="close-btn" onclick="closeModal('iletisimModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-logo-color" style="font-family: 'Bebas Neue', sans-serif;">Görüş ve Şikayetlerinizi Bize Bildirebilirsiniz</h2>
+            
+            <div id="message-box-contact" class="hidden p-3 rounded-lg text-center font-semibold text-sm" role="alert"></div>
+
+            <form id="contact-form">
+                <label for="contact-email">E-posta Adresiniz:</label>
+                <input type="email" id="contact-email" required placeholder="ornek@mail.com">
+                
+                <label for="contact-message">Mesajınız:</label>
+                <textarea id="contact-message" rows="4" required placeholder="Görüş, şikayet veya önerinizi buraya yazınız..."></textarea>
+                
+                <button type="submit" id="submit-button-contact">
+                    <i class="fa-solid fa-paper-plane"></i> Gönder
+                </button>
+            </form>
+        </div>
+    </div>
+
 
 
 
@@ -156,11 +183,7 @@
                         <i class="fa-solid fa-location-dot"></i> Adres
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="openModal('fiyatModal')" data-modal="fiyatModal">
-                        <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
-                    </a>
-                </li>
+               
                 <li>
                     <a href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
                         <i class="fa-solid fa-message"></i> İletişim

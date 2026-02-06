@@ -33,29 +33,53 @@
     </style>
 </head>
 <body>
-   <header>
+  <header>
     <div class="logo">
-        <a href="index.html">
-            <img src="img/Logo.jpg" alt="Şirket Logosu" class="logo-img">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">
+                <img src="img/logo.png" alt="Mono Aktif">
+            </span>
+            <span class="brand-text">
+                <span class="brand-title">Mono Aktif</span>
+                <span class="brand-sub">Aktif Sinemacılık</span>
+            </span>
             <span class="sr-only">Anasayfa</span>
         </a>
     </div>
     
-    <button class="menu-btn">
+    <button class="menu-btn" aria-label="Menü">
         <i class="fa-solid fa-bars"></i> 
     </button>
 
-    <nav class="nav-links">
-        <ul>
-             <li><a href="index.html">Gelecek Filmler</a></li>
-            <li><a href="Showtime.html">Vizyondakiler</a></li>
-            <li><a href="oyunlar.html">Oyunlar</a></li>
-            <li><a href="basvuru.html">Başvuru</a></li>
-            <li><a href="iletisimModal">İletişim</a></li>
-        </ul>
+    <nav class="nav-links" aria-label="Ana Menü">
+        <div class="nav-menu-header" aria-hidden="true">
+            <div class="brand-icon">
+                <img src="img/logo.png" alt="Mono Aktif">
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">Mono Aktif</span>
+                <span class="brand-sub">Aktif Sinemacılık</span>
+            </div>
+        </div>
+        <div class="nav-menu-body">
+            <span class="nav-menu-eyebrow">Hızlı Menü</span>
+            <ul>
+                <li><a class="nav-item" href="Showtime.html">Showtime</a></li>
+                <li><a class="nav-item" href="basvuru.html">Başvuru</a></li>
+                <li>
+                    <a class="nav-item" href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
+                       İletişim
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-menu-footer" aria-hidden="true">
+            <span class="nav-menu-footline">Mono Aktif Sinemacılık</span>
+        </div>
     </nav>
 </header>
-  
+
+
     <h1>KİŞİSEL VERİLERİN İŞLENMESİNE İLİŞKİN AYDINLATMA METNİ</h1>
 
     <p>İşbu Aydınlatma Metni, Mono Aktif Sinemacılık Hizmetleri Turizm ve Ticaret Anonim Şirketi (“Şirket”) tarafından Şirket’in müşterilerinin 6698 sayılı Kişisel Verilerin Korunması Kanunu (“Kanun”) kapsamında kişisel verilerinin Şirket tarafından işlenmesine ilişkin olarak aydınlatılması amacıyla hazırlanmıştır.</p>
@@ -111,6 +135,6 @@
     <p>Şirket, Kanun’da öngörülmüş sınırlar çerçevesinde söz konusu hakları kullanmak isteyen veri sahiplerine, yine Kanun’da öngörülen şekilde azami otuz (30) gün içerisinde cevap vermektedir. Kişisel veri sahipleri adına üçüncü kişilerin başvuru talebinde bulunabilmesi için veri sahibi tarafından başvuruda bulunacak kişi adına noter kanalıyla düzenlenmiş özel vekâletname bulunmalıdır.</p>
     <p>Veri sahibi başvuruları kural olarak ücretsiz olarak işleme alınmakla birlikte, Kişisel Verileri Koruma Kurulu tarafından öngörülen ücret tarifesi üzerinden ücretlendirme yapılabilecektir.</p>
     <p>Şirket, başvuruda bulunan kişinin kişisel veri sahibi olup olmadığını tespit etmek adına ilgili kişiden bilgi talep edebilir, başvuruda belirtilen hususları netleştirmek adına, kişisel veri sahibine başvurusu ile ilgili soru yöneltebilir.</p>
-    <p>10.03.2018 tarih ve 30356 sayılı Resmi Gazete’de yayınlanan “Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ” uyarınca, veri sahiplerinin başvurusuna yazılı olarak cevap verilecekse, on sayfaya kadar ücret alınmaz. On sayfanın üzerindeki her sayfa için 1 Türk Lirası işlem ücreti alınabilir. Başvuruya cevabın CD, flash bellek gibi bir kayıt ortamında verilmesi halinde Kurum tarafından talep edilebilecek ücret kayıt ortamının maliyetini geçemez.</p>
+    <p>10.03.2018 tarih ve 30356 sayılı Resmi Gazete’de yayınlanan “Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ” uyarınca, veri sahiplerinin başvurusuna yazılı olarak cevap verilecekse, on sayfaya kadar ücret alınmaz. On sayfanın üzerindeki her sayfa için 1 Türk Lirası işlem ücreti alınabilir. Başvuruya cevabın CD, flash bellek gibi bir kayıt ortamında verilmesi halinde Kurum tarafından talep edilebilecek ücret kayıt ortamının maliyetini geçemez.</p>  <main>
 </body>
 </html>

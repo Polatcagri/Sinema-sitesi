@@ -9,42 +9,50 @@
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    :root {
+      --bg-dark: #0b1118;
+      --card-bg: #151f2e;
+      --primary: #2b8cff;
+      --logo-color: #4cc9f0;
+      --text-white: #ffffff;
+      --text-gray: #a0a0a0;
+    }
     *{ box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { font-family: 'PT Sans', sans-serif; background: linear-gradient(135deg, #0f1724 0%, #081226 100%); color: #fff; overflow: hidden; }
-    .showtime-wrapper { width: 100vw; height: 100vh; display: flex; align-items: stretch; justify-content: center; position: relative; }
+    body { font-family: 'PT Sans', sans-serif; background: radial-gradient(1200px 600px at 10% -10%, rgba(76, 201, 240, 0.2), transparent 60%), radial-gradient(1200px 600px at 90% -20%, rgba(43, 140, 255, 0.2), transparent 60%), var(--bg-dark); color: var(--text-white); overflow: hidden; }
+    .showtime-wrapper { width: 100vw; height: 100vh; display: flex; align-items: stretch; justify-content: center; position: relative; padding: 12px; }
   .countdown-overlay { 
    position: absolute; 
-   top: 25px; 
-   right: 35px; 
-   width:80px; 
-   height:80px; 
-   background: #081226; 
-   border: 3px solid #2b8cff; color:#2b8cff; 
+   top: 18px; 
+   right: 18px; 
+   width:72px; 
+   height:72px; 
+   background: rgba(10, 25, 41, 0.9); 
+   border: 2px solid var(--primary);
+   color:var(--logo-color); 
    border-radius: 50%; 
    font-weight: 900; 
    z-index: 90; 
-   -webkit-backdrop-filter: blur(2px); 
-   backdrop-filter: blur(2px); 
-   font-size: 1.25rem;
-   box-shadow: 0 8px 18px 
-   rgba(0,0,0,0.55); 
+   -webkit-backdrop-filter: blur(6px); 
+   backdrop-filter: blur(6px); 
+   font-size: 1.1rem;
+   box-shadow: 0 10px 24px rgba(0,0,0,0.45); 
    display:flex;
    align-items:center;
    justify-content:center; }
-    .showtime-slider { width: 100%; height: 100%; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 18px 18px; padding: 18px; }
+    .showtime-slider { width: 100%; height: 100%; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 16px; padding: 8px; }
   .showtime-slider { will-change: transform, opacity; -webkit-transform: translateZ(0); transform: translateZ(0); }
   /* lighter shadow and GPU hints */
   .showtime-film-card { position: relative; 
    overflow: hidden; 
-   border-radius: 8px; 
-   background: #000; 
+   border-radius: 16px; 
+   background: var(--card-bg); 
    display: flex; 
    align-items: 
    stretch; 
    justify-content: center; 
    aspect-ratio: 2000/1000; 
-   box-shadow: 0 14px 30px rgba(0,0,0,0.55); 
+   box-shadow: 0 18px 40px rgba(0,0,0,0.5); 
    will-change: transform, opacity; 
    -webkit-transform: translateZ(0); 
    transform: translateZ(0);
@@ -55,21 +63,22 @@
    inset: 0; 
    border-radius: 8px;
     box-shadow: inset 0 -30px 40px rgba(0,0,0,0.45); pointer-events: none; }
-  .showtime-film-header { position: absolute; top: 0; left: 0; right: 0; padding: 10px 16px; background: rgba(0,0,0,0.35); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); z-index: 30; font-size: 1.25rem; font-weight: 800; color: #fff; }
+  .showtime-film-header { position: absolute; top: 0; left: 0; right: 0; padding: 10px 16px; background: rgba(10, 25, 41, 0.7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); z-index: 30; font-size: 1.2rem; font-weight: 800; color: #fff; letter-spacing: 0.3px; }
   .showtime-film-poster { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; }
   .showtime-film-poster img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
-  .showtime-film-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 90%); color: #fff; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
+  .showtime-film-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 18, 38, 0.85) 90%); color: #fff; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
   .showtime-film-title { font-size: 1.2rem; font-weight: 700; line-height: 1.1; }
   /* showtimes vertically on the right side */
   .showtime-film-times { position: absolute; left: 250px; top: 90%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; align-items: flex-end; z-index: 30; max-width: 28%; max-height: 70%; overflow-y: auto; padding-right:6px; }
   .showtime-film-times::-webkit-scrollbar{width:8px}
-  .showtime-film-times::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
-    .showtime-time-badge { background: linear-gradient(90deg, #ff006e, #8338ec); color: #fff; padding: 20px 15px; border-radius: 10px; font-weight: 800; font-size: 2.05rem; box-shadow: 0 6px 18px rgba(0,0,0,0.45); min-width:56px; text-align:center; }
+
+
 
   /* Showtimes positioned bottom-right, horizontal */
-  .showtime-film-times { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: row; gap: 8px; align-items: center; max-width: 60%; overflow: hidden; z-index: 45; }
-  .showtime-film-times .showtime-time-badge { padding: 10px 16px; font-size: 1.12rem; border-radius: 14px; min-width: 64px; font-weight:900; box-shadow: 0 10px 26px rgba(0,0,0,0.6); }
-  .showtime-film-times .showtime-time-badge.more { background: rgba(255,255,255,0.06); color: #fff; font-weight: 700; }
+  .showtime-film-times { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: row; gap: 12px; align-items: center; max-width: 80%; height: 30px; overflow: hidden; z-index: 45; }
+  .showtime-film-times .showtime-time-badge { padding: 12px 20px;  font-size: 1.75rem; border-radius: 20px;  ; font-weight:900; background: linear-gradient(135deg, rgba(43, 140, 255, 0.95), rgba(76, 201, 240, 0.95)); color: #fff;  }
+
+
 
   /* Page transition animations (ppt-like) - animate only transform & opacity for GPU compositing */
   .slider-transition-out { animation: pptOut 420ms cubic-bezier(.22,.9,.27,1) forwards; }
@@ -95,13 +104,18 @@
     /* Note: stagger timing is controlled in JS (small delay between cards) */    .showtime-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: #999; }
     .no-session { color: #ff6b6b; font-weight: 700; font-size: 0.95rem; }
   /* central overlay for no sessions */
-  .no-available-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.4rem;background:rgba(0,0,0,0.55);z-index:50}
+  .no-available-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.2rem;background:rgba(8, 17, 24, 0.75);z-index:50;text-align:center;padding:12px}
   /* age badges bottom-left */
   .age-badges{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;align-items:center;z-index:40}
     .age-badges{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;align-items:center;z-index:40}
     .age-badge{width:44px;height:44px;border-radius:50%;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);background-size:contain;background-position:center;background-repeat:no-repeat}
     @media (max-width: 1200px) { .showtime-slider { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px) { .showtime-slider { grid-template-columns: repeat(1, 1fr); gap: 12px; padding: 12px; } }
+    @media (max-width: 700px) { 
+      .showtime-slider { grid-template-columns: repeat(1, 1fr); gap: 12px; padding: 6px; } 
+      .showtime-film-header { font-size: 1.05rem; }
+      .showtime-film-times { max-width: 85%; flex-wrap: wrap; justify-content: flex-end; }
+      .showtime-film-times .showtime-time-badge { font-size: 0.95rem; padding: 8px 12px; min-width: 56px; }
+    }
   </style>
 </head>
 <body>
@@ -138,22 +152,36 @@
       startCountdown();
     }
 
+    function toLocalDateString(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
     async function fetchFilms() {
       try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error('API ' + res.status);
         allFilms = await res.json();
       } catch (e) {
-        console.warn('Proxy failed', e);
+        
         try {
           const r = await fetch('/data/info.json');
           allFilms = await r.json();
         } catch (err) {
-          console.error('Fallback failed', err);
+          
           document.getElementById('sliderContainer').innerHTML = '<div class="showtime-empty">Filmler yüklenemedi</div>';
           return;
         }
       }
+      // Only show films already released (vizyon <= today)
+      const todayStr = toLocalDateString(new Date());
+      allFilms = (allFilms || []).filter(film => {
+        if (!film || !film.vizyon) return true;
+        return film.vizyon <= todayStr;
+      });
+
       setupPages();
   showPage(0);
   // preload next page to avoid jank when first auto-advances
@@ -260,6 +288,7 @@
       timesWrap.className = 'showtime-film-times';
 
       const now = new Date();
+      const todayStr = toLocalDateString(now);
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
       // Filter future seans and dedupe by seans string
@@ -267,6 +296,7 @@
       const uniqueSeans = [];
       (film.altseans || []).forEach(s => {
         if (!s || !s.seans) return;
+        if (s.tarih && s.tarih !== todayStr) return;
         const parts = s.seans.split(':').map(p => parseInt(p, 10));
         if (parts.length < 2 || Number.isNaN(parts[0]) || Number.isNaN(parts[1])) return;
         const mins = parts[0] * 60 + parts[1];
@@ -281,7 +311,7 @@
         // darken + central message
         const overlay = document.createElement('div');
         overlay.className = 'no-available-overlay';
-        overlay.textContent = 'BUGÜN İÇİN GÖSTERİ SAATLERİ GEÇMİŞTİR.';
+        overlay.textContent = 'BUGÜN İÇİN GÖSTERİ SAATİ BULUNAMADI.';
         card.appendChild(overlay);
       } else {
         const maxShow = 5;

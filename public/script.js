@@ -31,6 +31,7 @@ window.onclick = function (event) {
 
 const navSlide = () => {
     const burger = document.querySelector('.menu-btn');
+    const burgerIcon = burger ? burger.querySelector('i') : null;
     const nav = document.querySelector('.nav-links');
     const navLinks = document.querySelectorAll('.nav-links li');
 
@@ -52,6 +53,50 @@ const navSlide = () => {
 
         // 3. Burger İkonunu Animasyonla (X şekline dönüştürmek için)
         burger.classList.toggle('toggle');
+        if (burgerIcon) {
+            if (nav.classList.contains('nav-active')) {
+                burgerIcon.classList.remove('fa-bars');
+                burgerIcon.classList.add('fa-xmark');
+            } else {
+                burgerIcon.classList.remove('fa-xmark');
+                burgerIcon.classList.add('fa-bars');
+            }
+        }
+
+        if (document.body.classList.contains('menu-open')) {
+            document.body.classList.remove('menu-open');
+        } else {
+            document.body.classList.add('menu-open');
+        }
+    });
+
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('nav-active')) {
+                nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+                navLinks.forEach((item) => (item.style.animation = ''));
+                document.body.classList.remove('menu-open');
+                if (burgerIcon) {
+                    burgerIcon.classList.remove('fa-xmark');
+                    burgerIcon.classList.add('fa-bars');
+                }
+            }
+        });
+    });
+
+    // Menü boş alanına tıklayınca kapansın (full ekran)
+    nav.addEventListener('click', (e) => {
+        if (e.target === nav && nav.classList.contains('nav-active')) {
+            nav.classList.remove('nav-active');
+            burger.classList.remove('toggle');
+            navLinks.forEach((item) => (item.style.animation = ''));
+            document.body.classList.remove('menu-open');
+            if (burgerIcon) {
+                burgerIcon.classList.remove('fa-xmark');
+                burgerIcon.classList.add('fa-bars');
+            }
+        }
     });
 }
 

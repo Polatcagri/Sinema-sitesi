@@ -1,88 +1,622 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Mono Aktif Sinemacılık</title>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İş Başvuru Formu | Mono Aktif Sinemacılık</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Google Fonts (Kullanıcının talep ettiği fontlar) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&display=swap" rel="stylesheet">
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+   
+     <style>
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background-color: var(--bg-dark);
+        }
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1118;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b8cff; /* Primary color */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4cc9f0;
+        }
+        /* Dosya seçim alanını daha iyi göstermek için küçük stil düzeltmesi */
+        .file-input-container input[type="file"] {
+            padding-top: 10px; /* Dosya adının görünmesi için padding */
+            padding-bottom: 10px;
+        }
+        .apply-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 120px 16px 80px;
+            background:
+                radial-gradient(800px 400px at 10% -10%, rgba(76, 201, 240, 0.2), transparent 60%),
+                radial-gradient(800px 400px at 90% -20%, rgba(43, 140, 255, 0.18), transparent 60%);
+        }
+        .apply-hero {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 28px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            display: grid;
+            gap: 20px;
+        }
+        .apply-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            letter-spacing: 1px;
+            color: var(--text-white);
+        }
+        .apply-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .apply-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(76, 201, 240, 0.4);
+            background: linear-gradient(135deg, rgba(43, 140, 255, 0.9), rgba(76, 201, 240, 0.9));
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(43, 140, 255, 0.3);
+        }
+        .apply-ghost {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .apply-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+        .apply-cards {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        .apply-card {
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            display: grid;
+            gap: 10px;
+            min-height: 140px;
+        }
+        .apply-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+        }
+        .apply-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .apply-section {
+            padding: 22px;
+            border-radius: 20px;
+            background: rgba(21, 31, 46, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+        .apply-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: var(--text-white);
+        }
+        .apply-section p {
+            color: var(--text-gray);
+            margin-bottom: 14px;
+        }
+        .apply-steps {
+            display: grid;
+            gap: 14px;
+        }
+        .apply-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .apply-step span {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(43, 140, 255, 0.9), rgba(76, 201, 240, 0.9));
+            color: #fff;
+            font-weight: 700;
+        }
+        .apply-step h4 {
+            margin: 0;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .apply-step p {
+            margin: 6px 0 0;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        .apply-form {
+            display: grid;
+            gap: 16px;
+        }
+        .apply-form-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        .apply-form label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-white);
+        }
+        .apply-form input,
+        .apply-form select,
+        .apply-form textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(10, 25, 41, 0.8);
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .apply-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .apply-form small {
+            color: var(--text-gray);
+            display: block;
+            margin-top: 6px;
+        }
+        .apply-checkbox {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        .apply-checkbox input {
+            margin-top: 4px;
+        }
+        .apply-submit {
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, #2b8cff, #4cc9f0);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(43, 140, 255, 0.35);
+        }
+        .apply-note {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 767px) {
+            .apply-page {
+                padding-top: 110px;
+            }
+            .apply-hero {
+                padding: 20px;
+            }
+            .apply-actions {
+                flex-direction: column;
+            }
+            .apply-btn,
+            .apply-ghost {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-        <a href="index.html">
-            <img src="img/Logo.jpg" alt="Şirket Logosu" class="logo-img">
-            <span class="sr-only">Anasayfa</span>
-        </a>
+
+   
+    <header>
+        <div class="logo">
+            <a href="index.html" class="brand">
+                <span class="brand-icon">
+                    <img src="img/logo.png" alt="Mono Aktif">
+                </span>
+                <span class="brand-text">
+                    <span class="brand-title">Mono Aktif</span>
+                    <span class="brand-sub">Aktif Sinemacılık</span>
+                </span>
+                <span class="sr-only">Anasayfa</span>
+            </a>
+        </div>
+        
+        <button class="menu-btn" aria-label="Menü">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="nav-links" aria-label="Ana Menü">
+            <div class="nav-menu-header" aria-hidden="true">
+                <div class="brand-icon">
+                    <img src="img/logo.png" alt="Mono Aktif">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Mono Aktif</span>
+                    <span class="brand-sub">Aktif Sinemacılık</span>
+                </div>
+            </div>
+            <div class="nav-menu-body">
+                <span class="nav-menu-eyebrow">Hızlı Menü</span>
+                <ul>
+                    <li><a class="nav-item" href="Showtime.html">Showtime</a></li>
+                    <li><a class="nav-item" href="basvuru.html" style="color:var(--logo-color);">Başvuru</a></li>
+                    <li>
+                        <a class="nav-item" href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
+                            İletişim
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-menu-footer" aria-hidden="true">
+                <span class="nav-menu-footline">Mono Aktif Sinemacılık</span>
+            </div>
+        </nav>
+    </header>
+    <main class="apply-page">
+        <section class="apply-hero">
+            <div>
+                <p class="text-logo-color font-semibold tracking-[3px] uppercase text-xs">Mono Aktif Sinemacılık</p>
+                <h1 class="apply-title">İş Başvuru Formu</h1>
+                <p class="apply-subtitle">
+                    Sinema deneyimini büyütmemize katkı sağlayacak takım arkadaşlarını arıyoruz. Aşağıdaki formu doldurarak
+                    başvurunu iletebilirsin. İncelememizin ardından en kısa sürede seninle iletişime geçeceğiz.
+                </p>
+            </div>
+            <div class="apply-actions">
+                <a class="apply-btn" href="#basvuru-formu"><i class="fa-solid fa-paper-plane"></i> Hemen Başvur</a>
+                <a class="apply-btn apply-ghost" href="#basvuru-sureci"><i class="fa-regular fa-circle-check"></i> Süreç Nasıl İşliyor?</a>
+            </div>
+        </section>
+
+        <section class="apply-grid">
+            <div class="apply-cards">
+                <article class="apply-card">
+                    <h3><i class="fa-solid fa-film"></i> Dinamik Çalışma</h3>
+                    <p>Vardiyalı çalışma, etkinlik günleri ve yoğun dönemler için esnek ekip yapısı.</p>
+                </article>
+                <article class="apply-card">
+                    <h3><i class="fa-solid fa-users"></i> Ekip Kültürü</h3>
+                    <p>Misafir odaklı, hızlı ve çözüm üreten bir ekip içinde gelişme fırsatı.</p>
+                </article>
+                <article class="apply-card">
+                    <h3><i class="fa-solid fa-star"></i> Kariyer Fırsatı</h3>
+                    <p>Performans odaklı terfi ve eğitim imkanlarıyla uzun vadeli planlama.</p>
+                </article>
+                <article class="apply-card">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Lokasyon</h3>
+                    <p>Kolay ulaşım, güvenli çalışma alanı ve modern sinema ortamı.</p>
+                </article>
+            </div>
+
+            <section id="basvuru-sureci" class="apply-section">
+                <h2>Başvuru Süreci</h2>
+                <p>Başvurunuzu aldıktan sonra hızlı bir ön değerlendirme yapıyoruz.</p>
+                <div class="apply-steps">
+                    <div class="apply-step">
+                        <span>1</span>
+                        <div>
+                            <h4>Formu Gönder</h4>
+                            <p>Bilgilerini eksiksiz doldur ve varsa CV dosyanı ekle.</p>
+                        </div>
+                    </div>
+                    <div class="apply-step">
+                        <span>2</span>
+                        <div>
+                            <h4>Ön Değerlendirme</h4>
+                            <p>İnsan kaynakları ekibimiz başvurunu inceler.</p>
+                        </div>
+                    </div>
+                    <div class="apply-step">
+                        <span>3</span>
+                        <div>
+                            <h4>Mülakat</h4>
+                            <p>Uygun adaylarla telefon ve yüz yüze görüşme yapılır.</p>
+                        </div>
+                    </div>
+                    <div class="apply-step">
+                        <span>4</span>
+                        <div>
+                            <h4>Teklif</h4>
+                            <p>Olumlu durumda teklif ve işbaşı süreci başlatılır.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="basvuru-formu" class="apply-section">
+                <h2>Başvuru Formu</h2>
+                <p>Yıldızlı alanlar zorunludur. Doğru bilgi paylaşmanız süreç açısından önemlidir.</p>
+                <form class="apply-form" autocomplete="on">
+                    <div class="apply-form-grid">
+                        <div>
+                            <label for="ad">Ad *</label>
+                            <input type="text" id="ad" name="ad" placeholder="Adınız" required>
+                        </div>
+                        <div>
+                            <label for="soyad">Soyad *</label>
+                            <input type="text" id="soyad" name="soyad" placeholder="Soyadınız" required>
+                        </div>
+                        <div>
+                            <label for="email">E-posta *</label>
+                            <input type="email" id="email" name="email" placeholder="ornek@mail.com" required>
+                        </div>
+                        <div>
+                            <label for="telefon">Telefon *</label>
+                            <input type="tel" id="telefon" name="telefon" placeholder="05xx xxx xx xx" required>
+                        </div>
+                        <div>
+                            <label for="sehir">Şehir *</label>
+                            <input type="text" id="sehir" name="sehir" placeholder="Ankara" required>
+                        </div>
+                        <div>
+                            <label for="ilce">İlçe</label>
+                            <input type="text" id="ilce" name="ilce" placeholder="Çankaya">
+                        </div>
+                        <div>
+                            <label for="dogum">Doğum Tarihi</label>
+                            <input type="date" id="dogum" name="dogum">
+                        </div>
+                        <div>
+                            <label for="cinsiyet">Cinsiyet</label>
+                            <select id="cinsiyet" name="cinsiyet">
+                                <option value="">Seçiniz</option>
+                                <option value="kadin">Kadın</option>
+                                <option value="erkek">Erkek</option>
+                                <option value="belirtmek-istemiyorum">Belirtmek istemiyorum</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pozisyon">Pozisyon *</label>
+                            <select id="pozisyon" name="pozisyon" required>
+                                <option value="">Seçiniz</option>
+                                <option value="gişe">Gişe Görevlisi</option>
+                                <option value="salon">Salon Görevlisi</option>
+                                <option value="büfe">Büfe Görevlisi</option>
+                                <option value="temizlik">Temizlik Personeli</option>
+                                <option value="teknik">Teknik Destek</option>
+                                <option value="yonetim">Yönetim / Operasyon</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="ogrenim">Öğrenim Durumu *</label>
+                            <select id="ogrenim" name="ogrenim" required>
+                                <option value="">Seçiniz</option>
+                                <option value="ilkogretim">İlköğretim</option>
+                                <option value="lise">Lise</option>
+                                <option value="onlisans">Önlisans</option>
+                                <option value="lisans">Lisans</option>
+                                <option value="yuksek-lisans">Yüksek Lisans</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="tecrube">Tecrübe (Yıl) *</label>
+                            <select id="tecrube" name="tecrube" required>
+                                <option value="">Seçiniz</option>
+                                <option value="0-1">0-1</option>
+                                <option value="1-3">1-3</option>
+                                <option value="3-5">3-5</option>
+                                <option value="5+">5+</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="uygunluk">Vardiya Uygunluğu *</label>
+                            <select id="uygunluk" name="uygunluk" required>
+                                <option value="">Seçiniz</option>
+                                <option value="tam">Tam zamanlı</option>
+                                <option value="yari">Yarı zamanlı</option>
+                                <option value="haftasonu">Hafta sonu</option>
+                                <option value="esnek">Esnek</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="maas">Maaş Beklentisi</label>
+                            <input type="text" id="maas" name="maas" placeholder="Örn: 30.000 TL">
+                        </div>
+                        <div>
+                            <label for="diller">Yabancı Dil</label>
+                            <input type="text" id="diller" name="diller" placeholder="İngilizce, Almanca">
+                        </div>
+                        <div>
+                            <label for="bilgisayar">Bilgisayar Bilgisi</label>
+                            <input type="text" id="bilgisayar" name="bilgisayar" placeholder="MS Office, POS, CRM">
+                        </div>
+                        <div>
+                            <label for="sertifika">Sertifika / Eğitim</label>
+                            <input type="text" id="sertifika" name="sertifika" placeholder="Örn: Hijyen Sertifikası">
+                        </div>
+                        <div>
+                            <label for="link">Portfolyo / LinkedIn</label>
+                            <input type="url" id="link" name="link" placeholder="https://">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="hakkinda">Kısaca Kendinizden Bahsedin *</label>
+                        <textarea id="hakkinda" name="hakkinda" placeholder="Kariyer hedefiniz, motivasyonunuz..." required></textarea>
+                    </div>
+
+                    <div class="apply-form-grid">
+                        <div class="file-input-container">
+                            <label for="cv">CV / Özgeçmiş *</label>
+                            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+                            <small>PDF veya Word formatında yükleyebilirsiniz.</small>
+                        </div>
+                        <div class="file-input-container">
+                            <label for="foto">Vesikalık (Zorunludur)</label>
+                            <input type="file" id="foto" name="foto" accept="image/*">
+                        </div>
+                    </div>
+
+                    <label class="apply-checkbox">
+                        <input type="checkbox" required>
+                        <span>KVK Aydınlatma Metni’ni okudum ve kabul ediyorum. <a href="Kvk.html" class="text-logo-color">KVKK</a></span>
+                    </label>
+                    <label class="apply-checkbox">
+                        <input type="checkbox" required>
+                        <span>Başvuru bilgilerimin değerlendirme amacıyla kullanılmasını kabul ediyorum.</span>
+                    </label>
+
+                    <button type="submit" class="apply-submit"><i class="fa-solid fa-check"></i> Başvuruyu Gönder</button>
+                    <p class="apply-note">Başvurunuz bize ulaştıktan sonra 7 iş günü içinde dönüş yapılacaktır.</p>
+                </form>
+            </section>
+        </section>
+    </main>
+
+   
+    <footer>
+        <div class="footer-container">
+
+            <div class="footer-section footer-brand">
+                <h3>Mono Aktif</h3>
+                <p>Aktif Sinemacılık Deneyimi.</p>
+            </div>
+            
+            <div class="footer-section footer-links">
+                <h3>Hızlı Bağlantılar</h3>
+                <ul>
+                    <li>
+                        <a href="javascript:void(0);" onclick="openModal('adresModal')" data-modal="adresModal">
+                            <i class="fa-solid fa-location-dot"></i> Adres
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
+                            <i class="fa-solid fa-message"></i> İletişim
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-section footer-legal">
+                <h3>Yasal</h3>
+                <a href="cerez.html">Çerez Politikası</a>
+                <a href="Kvk.html">KVK Aydınlatma Metni</a>
+            </div>
+
+            <div class="footer-section footer-social">
+                <h3>Sosyal Medya</h3>
+                <div class="social-links">
+                    <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mono Aktif Sinemacılık. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+
+    <!--
+    ====================================================================
+    MODALS - KULLANICI İÇERİKLERİ İLE GÜNCELLENDİ
+    ====================================================================
+    -->
+
+    <!-- Adres Modalı (Haritalı) -->
+    <div id="adresModal" class="modal">
+        <div class="modal-content-base">
+            <span class="close-btn" onclick="closeModal('adresModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-logo-color" style="font-family: 'Bebas Neue', sans-serif;">Adres Bilgileri</h2>
+            <p class="text-text-gray mb-4">İşçi Blokları, Mevlana Blv. 190B D:415, 06530 Çankaya/Ankara</p>
+            
+            <!-- Harita Iframe -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48984.48107351115!2d32.81415882631836!3d39.884763067156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d345e2586d67ad%3A0x1bcc4c9e5b0bf951!2sTaurus%20AVM!5e0!3m2!1str!2str!4v1735333904075!5m2!1str!2str" 
+                    allowfullscreen 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Taurus AVM Konumu">
+                </iframe>
+            </div>
+        </div>
     </div>
-    
-    <button class="menu-btn">
-        <i class="fa-solid fa-bars"></i> 
-    </button>
 
-    <nav class="nav-links">
-        <ul>
-             <li><a href="index.html">Gelecek Filmler</a></li>
-            <li><a href="Showtime.html">Vizyondakiler</a></li>
-            <li><a href="oyunlar.html">Oyunlar</a></li>
-            <li><a href="basvuru.html">Başvuru</a></li>
-            <li><a href="iletisimModal">İletişim</a></li>
-        </ul>
-    </nav>
-</header>
+    <!-- İletişim Modalı (Formlu) -->
+    <div id="iletisimModal" class="modal">
+        <div class="modal-content-base">
+            <span class="close-btn" onclick="closeModal('iletisimModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-logo-color" style="font-family: 'Bebas Neue', sans-serif;">Görüş ve Şikayetlerinizi Bize Bildirebilirsiniz</h2>
+            
+            <div id="message-box-contact" class="hidden p-3 rounded-lg text-center font-semibold text-sm" role="alert"></div>
 
-  <footer>
-   <div class="footer-container">
-    
-     <div class="footer-section">
-       <h3>Sosyal Medya</h3>
-       <div class="social-links">
-         <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-       </div>
-     </div>
- 
-     
-     <div class="footer-section">
-      <h3>KVK</h3>
-      <a href="cerez.html" ><p>Çerez Politikası</p></a>
-      <a href="Kvk.html" ><p>KVK Aydınlatma metni</p></a>
-     </div>
-    
-     <div class="footer-section">
-       <h3>Hızlı Bağlantılar</h3>
-       <ul>
-         <li onclick="openModal('adresModal')" style="cursor: pointer;">
-           <a href="javascript:void(0);">
-               <i class="fa-solid fa-location-dot"></i> Adres
-           </a>
-       </li>
-       <li onclick="openModal('fiyatModal')" style="cursor: pointer;">
-         <a href="javascript:void(0);">
-           <i class="fa-solid fa-tag"></i> Fiyat Bilgileri
-         </a>
-     </li>
-     <li onclick="openModal('iletisimModal')" style="cursor: pointer;">
-       <a href="javascript:void(0);">
-         <i class="fa-solid fa-message"></i> İletişim
-       </a>
-   </li>
-       </ul>
-     </div>
-   </div>
- 
-  
-   <div class="footer-bottom">
-     <p>&copy; 2025 Mono Aktif Sinemacılık. Tüm hakları saklıdır.</p>
-   </div>
- </footer>  
+            <form id="contact-form">
+                <label for="contact-email">E-posta Adresiniz:</label>
+                <input type="email" id="contact-email" required placeholder="ornek@mail.com">
+                
+                <label for="contact-message">Mesajınız:</label>
+                <textarea id="contact-message" rows="4" required placeholder="Görüş, şikayet veya önerinizi buraya yazınız..."></textarea>
+                
+                <button type="submit" id="submit-button-contact">
+                    <i class="fa-solid fa-paper-plane"></i> Gönder
+                </button>
+            </form>
+        </div>
+    </div>
 
-  <script src="script.js"></script>
+
+    <!--
+    ====================================================================
+    JAVASCRIPT MANTIĞI VE FIREBASE ENTEGRASYONU
+    ====================================================================
+    -->
+     <script src="script.js"></script>
 </body>
 </html>
