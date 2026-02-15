@@ -29,80 +29,89 @@ window.onclick = function (event) {
   });
 };
 
-const navSlide = () => {
-    const burger = document.querySelector('.menu-btn');
-    const burgerIcon = burger ? burger.querySelector('i') : null;
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
+const initFluidNavbar = () => {
+    const searchWrapper = document.getElementById('search-wrapper');
+    const searchTrigger = document.getElementById('search-trigger');
+    
+    const mobileToggles = document.querySelectorAll('.mobile-toggle'); 
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    const themeBtns = document.querySelectorAll('#theme-btn, #mobile-theme-btn, .theme-btn');
+    const themeIcons = document.querySelectorAll('#theme-icon');
 
-    burger.addEventListener('click', () => {
-        // 1. Menüyü Aç/Kapa
-        nav.classList.toggle('nav-active');
-
-        // 2. Link Animasyonları (Sırayla gelme efekti)
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                // Eğer zaten açıksa animasyonu temizle (kapanırken)
-                link.style.animation = '';
-            } else {
-                // Açılırken animasyonu ekle. Index ile gecikme veriyoruz.
-                // index / 7 + 0.3s -> Her bir link 0.1s farkla gelir.
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+    // --- Arama Çubuğu ---
+    if (searchWrapper && searchTrigger) {
+        searchTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchWrapper.classList.toggle('expanded');
+            if (searchWrapper.classList.contains('expanded')) {
+                const input = searchWrapper.querySelector('input');
+                if (input) input.focus();
             }
         });
 
-        // 3. Burger İkonunu Animasyonla (X şekline dönüştürmek için)
-        burger.classList.toggle('toggle');
-        if (burgerIcon) {
-            if (nav.classList.contains('nav-active')) {
-                burgerIcon.classList.remove('fa-bars');
-                burgerIcon.classList.add('fa-xmark');
-            } else {
-                burgerIcon.classList.remove('fa-xmark');
-                burgerIcon.classList.add('fa-bars');
+        document.addEventListener('click', (e) => {
+            if (!searchWrapper.contains(e.target)) {
+                searchWrapper.classList.remove('expanded');
             }
-        }
+        });
+    }
 
-        if (document.body.classList.contains('menu-open')) {
-            document.body.classList.remove('menu-open');
-        } else {
-            document.body.classList.add('menu-open');
-        }
-    });
+    // --- Mobil Menü (Slider'ı Bozan Kısımlar Kaldırıldı) ---
+    if (mobileToggles.length > 0 && mobileMenu) {
+        mobileToggles.forEach(toggleBtn => {
+            toggleBtn.addEventListener('click', () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                mobileToggles.forEach(btn => btn.classList.toggle('active', isActive));
+                
+                // DÜZELTME: document.body.style.overflow kaldırıldı. 
+                // Bu satır slider yüksekliğini hesaplayan tarayıcıyı şaşırtıyordu.
+            });
+        });
 
-    navLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-            if (nav.classList.contains('nav-active')) {
-                nav.classList.remove('nav-active');
-                burger.classList.remove('toggle');
-                navLinks.forEach((item) => (item.style.animation = ''));
-                document.body.classList.remove('menu-open');
-                if (burgerIcon) {
-                    burgerIcon.classList.remove('fa-xmark');
-                    burgerIcon.classList.add('fa-bars');
-                }
-            }
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                mobileToggles.forEach(btn => btn.classList.remove('active'));
+                mobileMenu.classList.remove('active');
+                // DÜZELTME: Navigasyon gizleme (visibility) mantığı kaldırıldı.
+            });
+        });
+    }
+
+    // --- Tema Yönetimi ---
+    const setThemeIcon = (isDark) => {
+        themeIcons.forEach(icon => {
+            icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        themeBtns.forEach(btn => {
+            if (btn) btn.style.color = isDark ? '#facc15' : '#334155';
+        });
+    };
+
+    const toggleTheme = () => {
+        document.documentElement.classList.toggle('light');
+        const isDark = !document.documentElement.classList.contains('light');
+        setThemeIcon(isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleTheme();
         });
     });
 
-    // Menü boş alanına tıklayınca kapansın (full ekran)
-    nav.addEventListener('click', (e) => {
-        if (e.target === nav && nav.classList.contains('nav-active')) {
-            nav.classList.remove('nav-active');
-            burger.classList.remove('toggle');
-            navLinks.forEach((item) => (item.style.animation = ''));
-            document.body.classList.remove('menu-open');
-            if (burgerIcon) {
-                burgerIcon.classList.remove('fa-xmark');
-                burgerIcon.classList.add('fa-bars');
-            }
-        }
+    window.addEventListener('load', () => {
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const useLight = storedTheme ? storedTheme === 'light' : !prefersDark;
+        document.documentElement.classList.toggle('light', useLight);
+        setThemeIcon(!useLight);
     });
-}
+};
 
-// Fonksiyonu çalıştır
-navSlide();
-
+initFluidNavbar();
 
 
 const slides = document.querySelectorAll('.showtime-slide');

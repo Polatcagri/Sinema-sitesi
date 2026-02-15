@@ -14,8 +14,8 @@
 
 </head>
 <body>
-<header>
-    <div class="logo">
+<header class="fluid-nav">
+    <div class="fluid-nav__inner fluid-glass">
         <a href="index.html" class="brand">
             <span class="brand-icon">
                 <img src="img/logo.png" alt="Mono Aktif">
@@ -26,36 +26,101 @@
             </span>
             <span class="sr-only">Anasayfa</span>
         </a>
-    </div>
-    
-    <button class="menu-btn" aria-label="Menüyü Aç/Kapat">
-        <i class="fa-solid fa-bars"></i> 
-    </button>
 
-    <nav class="nav-links" aria-label="Ana Menü">
-        <div class="nav-menu-header" aria-hidden="true">
-            <div class="brand-icon">
-                  <img src="img/logo.png" alt="Mono Aktif">
+        <div class="fluid-nav__center">
+            <nav class="fluid-nav__links" aria-label="Ana Menü">
+                <a class="nav-item" href="index.html">Anasayfa</a>
+                <a class="nav-item" href="Showtime.html">Showtime</a>
+                <a class="nav-item" href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">İletişim</a>
+            </nav>
+
+            <div id="search-wrapper" class="search-container">
+                <button id="search-trigger" class="search-trigger" aria-label="Ara">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" placeholder="Bir şeyler arayın..." class="search-input" aria-label="Arama">
             </div>
-            <div class="brand-text">
+        </div>
+
+        <div class="fluid-nav__actions">
+            <!-- <button id="theme-btn" class="theme-btn" aria-label="Tema">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button> -->
+            <a href="basvuru.html" class="cta-btn">Başvuru</a>
+              <button id="mobile-toggle" class="mobile-toggle clapper-toggle" aria-label="Mobil Menü">
+    <div class="clapper-container">
+        <div class="clapper">
+            <div class="clapper-top"></div>
+            <div class="clapper-bottom"></div>
+        </div>
+        <span class="menu-label">MENÜ</span>
+    </div>
+</button>
+
+            
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="fluid-nav__inner fluid-glass">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">
+                <img src="img/logo.png" alt="Mono Aktif">
+            </span>
+            <span class="brand-text">
                 <span class="brand-title">Mono Aktif</span>
                 <span class="brand-sub">Aktif Sinemacılık</span>
-            </div>
+            </span>
+            <span class="sr-only">Anasayfa</span>
+        </a>
+         <div class="fluid-nav__actions">
+            <!-- <button id="theme-btn" class="theme-btn" aria-label="Tema">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button> -->
+            <a href="basvuru.html" class="cta-btn">Başvuru</a>
+                 <button id="mobile-toggle" class="mobile-toggle clapper-toggle" aria-label="Mobil Menü">
+    <div class="clapper-container">
+        <div class="clapper">
+            <div class="clapper-top"></div>
+            <div class="clapper-bottom"></div>
         </div>
-        <div class="nav-menu-body">
-          
-            <ul>
-            <li><a class="nav-item" href="Showtime.html">Showtime</a></li>
-            <li><a class="nav-item" href="basvuru.html">Başvuru</a></li>
-            <li>
-                <a class="nav-item" href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">
-                    İletişim
-                </a>
-            </li>
-            </ul>
+        <span class="menu-label">MENÜ</span>
+    </div>
+</button>
+              
+
         </div>
+        </div>
+
         
-    </nav>
+        <div class="mobile-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Uygulamada ara..." aria-label="Mobil arama">
+        </div>
+
+        <div class="mobile-links">
+            <a href="index.html">Anasayfa</a>
+            <a href="Showtime.html">Showtime</a>
+            <a href="basvuru.html">Başvuru</a>
+            <a href="javascript:void(0);" onclick="openModal('iletisimModal')" data-modal="iletisimModal">İletişim</a>
+        </div>
+
+        <div class="mobile-menu-content">
+    <div class="mobile-links">
+        </div>
+
+    <div class="mobile-footer-wrapper">
+        <div class="social-card">
+            <span class="social-title">BİZİ TAKİP EDİN</span>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/taurus_cinemarine/"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/tauruscinemarine/mentions/"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p class="copyright-text">© 2026 Mono Aktif. Tüm Hakları Saklıdır.</p>
+        </div>
+    </div>
+</div>
+    </div>
 </header>
   
  
@@ -79,7 +144,7 @@
     <ul class="slider-menu">
       <li class="active" data-category="popular">Vizyonda Yeni</li>
       <li data-category="now_playing">Vizyondakiler</li>
-      <!-- <li data-category="upcoming">Gelecek Filmler</li> -->
+      <li data-category="upcoming">Gelecek Filmler</li>
     </ul>
   </div>
 
